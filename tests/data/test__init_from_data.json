@@ -1,0 +1,18 @@
+{
+    "/test/path/file1.hipnc": {
+        "open_timestamp": 1710886869.0176835,
+        "save_version": "20.5.178"
+    },
+    "/test/path/file2.hipnc": {
+        "open_timestamp": 1738076128.2437088,
+        "save_version": "20.5.229"
+    },
+    "/test/path/file3.hipnc": {
+        "open_timestamp": 1722337846.0559487,
+        "save_version": "20.5.310"
+    },
+    "/test/path/file4.hipnc": {
+        "open_timestamp": 1724442855.1663203,
+        "save_version": "20.5.332"
+    }
+}

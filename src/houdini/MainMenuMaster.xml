@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mainMenu>
+    <menuBar>
+        <subMenu id="file_menu">
+            <subMenu id="ht_recent">
+                <!-- Insert our menu before the default Houdini menu. -->
+                <insertBefore>recent_files</insertBefore>
+
+                <label>Open Recent Files</label>
+                <scriptMenuStripDynamic id="ht_recent_load_files">
+                    <contentsScriptCode><![CDATA[
+import houdini_recent_files_menu.ui
+
+return houdini_recent_files_menu.ui.build_recent_files_menu()
+]]>
+                    </contentsScriptCode>
+                    <scriptCode><![CDATA[import hdefereval
+import hou
+
+# We need to execute our open command as deferred, otherwise any confirmation
+# dialogs or other popups may appear behind the files menu as it will not close
+# if we call load() directly. By executing deferred, we give the UI a moment
+# to close the menu and be in a better state.
+def open_file():
+    hou.hipFile.load(kwargs["selectedtoken"])
+
+hdefereval.execute_deferred(open_file)
+]]></scriptCode>
+                </scriptMenuStripDynamic>
+            </subMenu>
+        </subMenu>
+    </menuBar>
+    <!-- Remove the default Houdini menu. -->
+    <removeItem id="recent_files"/>
+</mainMenu>
