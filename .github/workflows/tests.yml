@@ -32,12 +32,32 @@ jobs:
       - name: Test with tox
         run: tox
 
-      - name: Workaround for codecov/feedback#263
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+      # Install rez dependencies
+      - name: Install Rez Packages
+        uses: captainhammy/install-rez-packages-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: captainhammy/houdini-recent-files-menu
+          files: requirements.txt
+
+      - name: Clone you-can-call-me-houdini
+        run: |
+          git -C ${{ runner.temp }} clone https://github.com/captainhammy/you-can-call-me-houdini.git
+          cd  ${{ runner.temp }}/you-can-call-me-houdini
+          rez build --install
+
+      # Build rez packages
+      - name: Build Package
+        uses: captainhammy/build-rez-package-action@v1
+
+      # Test rez package
+      - name: Test Package
+        uses: captainhammy/test-rez-package-action@v1
+
+#      - name: Workaround for codecov/feedback#263
+#        run: |
+#          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+#
+#      - name: Upload coverage reports to Codecov
+#        uses: codecov/codecov-action@v5
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          slug: captainhammy/houdini-recent-files-menu
