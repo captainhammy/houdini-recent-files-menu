@@ -27,7 +27,6 @@
         module = "hou.*"
         ignore_missing_imports = true
 
-
 [tool.coverage]
     [tool.coverage.run]
         branch = true

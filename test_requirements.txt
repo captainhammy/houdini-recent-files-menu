@@ -1,5 +1,5 @@
 pytest
 pytest_datadir
-pytest_sugar
 pytest_cov
 pytest_mock
+pytest_sugar
