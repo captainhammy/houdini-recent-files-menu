@@ -2,9 +2,10 @@
 
 # Standard Library
 import pathlib
+from datetime import datetime
 
 # Houdini Recent Files Menu
-from houdini_recent_files_menu import api, ui
+from houdini_recent_files_menu import api, constants, ui
 
 # Tests
 
@@ -19,9 +20,9 @@ def test__build_display_table(mocker):
     ]
 
     expected = [
-        "1. $HIP/file1.hipnc        (20.5.178)  2024-03-19 15:21",
-        "2. $HOME/file2.hipnc       (None)      2025-01-28 06:55",
-        "3. /test/path/file3.hipnc  (20.5.310)  2024-07-30 04:10",
+        f"1. $HIP/file1.hipnc        (20.5.178)  {datetime.fromtimestamp(1710886869.0176835).strftime(constants.TIMESTAMP_FORMAT)}",
+        f"2. $HOME/file2.hipnc       (None)      {datetime.fromtimestamp(1738076128.2437088).strftime(constants.TIMESTAMP_FORMAT)}",
+        f"3. /test/path/file3.hipnc  (20.5.310)  {datetime.fromtimestamp(1722337846.0559487).strftime(constants.TIMESTAMP_FORMAT)}",
     ]
 
     result = ui._build_display_table(mock_manager)

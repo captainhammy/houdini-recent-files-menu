@@ -57,7 +57,8 @@ class Test_source_file_path:
         home_path = tmp_path / "home"
         mocker.patch("pathlib.Path.home", return_value=home_path)
 
-        monkeypatch.delenv(constants.RECENT_FILE_SOURCE_VAR_NAME)
+        if constants.RECENT_FILE_SOURCE_VAR_NAME in os.environ:
+            monkeypatch.delenv(constants.RECENT_FILE_SOURCE_VAR_NAME)
 
         assert filesystem.source_file_path() == home_path / constants.RECENT_FILE_SOURCE_FILE_NAME
 

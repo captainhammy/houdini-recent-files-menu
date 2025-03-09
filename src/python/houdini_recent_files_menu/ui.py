@@ -27,7 +27,7 @@ def _build_display_table(manager: api.RecentFileManager) -> list[str]:
         rows.append([
             f"{idx + 1}. {hou.text.collapseCommonVars(recent_file.path.as_posix(), vars=constants.VARS_TO_COLLAPSE)}",
             f"({recent_file.save_version})",
-            dt.strftime("%Y-%m-%d %H:%M"),
+            dt.strftime(constants.TIMESTAMP_FORMAT),
         ])
 
     # Generate the table data and split it back out into rows.

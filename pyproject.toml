@@ -118,6 +118,9 @@
             "PT012",  # pytest.raises() simple statement
             "TRY003",  # Long exception messages
         ]
+        "tests/test_ui.py" = [
+            "E501"
+        ]
 
     [tool.ruff.lint.flake8-pytest-style]
         fixture-parentheses = false  # Match actual pytest recommendation with no parentheses
