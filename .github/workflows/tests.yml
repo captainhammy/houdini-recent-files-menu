@@ -40,6 +40,7 @@ jobs:
 
       - name: Clone you-can-call-me-houdini
         run: |
+          mkdir ${{ runner.temp }}
           git -C ${{ runner.temp }} clone https://github.com/captainhammy/you-can-call-me-houdini.git
           cd  ${{ runner.temp }}/you-can-call-me-houdini
           rez build --install
