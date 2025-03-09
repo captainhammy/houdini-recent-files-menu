@@ -29,6 +29,7 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install tox tox-gh-actions coverage
 
+      # Perform static analysis tests, as well as testing building documentation.
       - name: Test with tox
         run: tox
 
@@ -38,6 +39,7 @@ jobs:
         with:
           files: requirements.txt,test_requirements.txt
 
+      # Manually clone, build, and install you-can-call-me-houdini for rez.
       - name: Clone you-can-call-me-houdini
         run: |
           mkdir -p ${{ runner.temp }}
@@ -46,19 +48,19 @@ jobs:
           rez build --install  --variant=2
 
       # Build rez packages
-      - name: Build Package
+      - name: Build Current Rez Package
         uses: captainhammy/build-rez-package-action@v1
 
       # Test rez package
-      - name: Test Package
+      - name: Test Current Rez Package
         uses: captainhammy/test-rez-package-action@v1
 
-#      - name: Workaround for codecov/feedback#263
-#        run: |
-#          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-#
-#      - name: Upload coverage reports to Codecov
-#        uses: codecov/codecov-action@v5
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          slug: captainhammy/houdini-recent-files-menu
+      - name: Workaround for codecov/feedback#263
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: captainhammy/houdini-recent-files-menu
