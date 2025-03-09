@@ -29,8 +29,31 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install tox tox-gh-actions coverage
 
+      # Perform static analysis tests, as well as testing building documentation.
       - name: Test with tox
         run: tox
+
+      # Install rez dependencies
+      - name: Install Rez Packages
+        uses: captainhammy/install-rez-packages-action@v1
+        with:
+          files: requirements.txt,test_requirements.txt
+
+      # Manually clone, build, and install you-can-call-me-houdini for rez.
+      - name: Clone you-can-call-me-houdini
+        run: |
+          mkdir -p ${{ runner.temp }}
+          git -C ${{ runner.temp }} clone https://github.com/captainhammy/you-can-call-me-houdini.git
+          cd  ${{ runner.temp }}/you-can-call-me-houdini
+          rez build --install  --variant=2
+
+      # Build rez packages
+      - name: Build Current Rez Package
+        uses: captainhammy/build-rez-package-action@v1
+
+      # Test rez package
+      - name: Test Current Rez Package
+        uses: captainhammy/test-rez-package-action@v1
 
       - name: Workaround for codecov/feedback#263
         run: |

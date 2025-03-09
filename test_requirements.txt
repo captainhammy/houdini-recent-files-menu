@@ -1,0 +1,5 @@
+pytest
+pytest_datadir
+pytest_cov
+pytest_mock
+pytest_sugar

@@ -27,7 +27,6 @@
         module = "hou.*"
         ignore_missing_imports = true
 
-
 [tool.coverage]
     [tool.coverage.run]
         branch = true
@@ -117,6 +116,9 @@
             "PT007",  # Expected `list` instead of `tuple` for parametrized fixtures
             "PT012",  # pytest.raises() simple statement
             "TRY003",  # Long exception messages
+        ]
+        "tests/test_ui.py" = [
+            "E501"  # Lines too long due to timestamp formatting
         ]
 
     [tool.ruff.lint.flake8-pytest-style]

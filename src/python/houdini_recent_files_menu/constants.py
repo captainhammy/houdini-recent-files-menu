@@ -18,3 +18,6 @@ DATA_NAME__SAVE_VERSION = "save_version"
 
 VARS_TO_COLLAPSE = ("$HIP", "$HOME")
 """Variables to collapse when displaying file paths in the menu."""
+
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M"
+"""Timestamp format for UI display."""
