@@ -118,7 +118,7 @@
             "TRY003",  # Long exception messages
         ]
         "tests/test_ui.py" = [
-            "E501"
+            "E501"  # Lines too long due to timestamp formatting
         ]
 
     [tool.ruff.lint.flake8-pytest-style]
