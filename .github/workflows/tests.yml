@@ -36,7 +36,7 @@ jobs:
       - name: Install Rez Packages
         uses: captainhammy/install-rez-packages-action@v1
         with:
-          files: requirements.txt
+          files: requirements.txt,test_requirements.txt
 
       - name: Clone you-can-call-me-houdini
         run: |

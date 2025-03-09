@@ -30,7 +30,7 @@ build_system = "cmake"
 tests = {
     "unit": {
         "command": "coverage erase && hython -m pytest tests",
-        "requires": ["pytest", "pytest_datadir", "pytest_cov", "pytest_mock"],
+        "requires": ["pytest", "pytest_datadir", "pytest_sugar", "pytest_cov", "pytest_mock"],
     }
 }
 
