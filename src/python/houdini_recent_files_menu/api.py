@@ -28,9 +28,13 @@ class RecentFile:
     path: pathlib.Path
     open_timestamp: float
     save_version: str | None
+    exists: bool = dataclasses.field(init=False)
+
+    def __post_init__(self) -> None:
+        self.exists = self.path.exists()
 
     def as_json(self) -> dict:
-        """Return a json representation of the recent file data."""
+        """Return a JSON representation of the recent file data."""
         return {
             self.path.as_posix(): {
                 constants.DATA_NAME__OPEN_TIMESTAMP: self.open_timestamp,
@@ -73,7 +77,7 @@ class RecentFileManager(metaclass=singleton.Singleton):
         self.files = read_items[: min(constants.MAX_DISPLAY_FILES, len(read_items))]
 
     def _init_from_disk(self) -> None:
-        """Initialize recent files list from the source file on disk."""
+        """Initialize the list of recent files from the source file on disk."""
         data = filesystem.read_file_data()
         self.update_last_access_time()
 
@@ -105,7 +109,7 @@ class RecentFileManager(metaclass=singleton.Singleton):
         self._init_from_data(data)
 
     def refresh_data(self) -> None:
-        """Refresh the files list from disk, if necessary.
+        """Refresh the list of files from disk, if necessary.
 
         This will check the file modified time against the last access time and reload
         the data if necessary.
@@ -153,6 +157,7 @@ def _reduce_entries(data: dict) -> dict:
 def add_current_hip_to_recent_files() -> None:
     """Add the current hip file path to the recent files list."""
     hip_file = pathlib.Path(hou.hipFile.path())
+
     version = hou.text.expandString("$_HIP_SAVEVERSION") or None
 
     recent_file = RecentFile(hip_file, time.time(), version)

@@ -24,8 +24,14 @@ def _build_display_table(manager: api.RecentFileManager) -> list[str]:
     for idx, recent_file in enumerate(manager.files):
         dt = datetime.datetime.fromtimestamp(recent_file.open_timestamp)
 
+        display = hou.text.collapseCommonVars(recent_file.path.as_posix(), vars=constants.VARS_TO_COLLAPSE)
+
+        # Indicate if the file no longer exists on disk.
+        if not recent_file.exists:
+            display = f"{display} (no longer exists)"
+
         rows.append([
-            f"{idx + 1}. {hou.text.collapseCommonVars(recent_file.path.as_posix(), vars=constants.VARS_TO_COLLAPSE)}",
+            f"{idx + 1}. {display}",
             f"({recent_file.save_version})",
             dt.strftime(constants.TIMESTAMP_FORMAT),
         ])
