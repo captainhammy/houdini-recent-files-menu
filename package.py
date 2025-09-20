@@ -9,7 +9,7 @@ description = "More advanced Open Recent Files menu."
 def version() -> str:
     """Get the package version.
 
-    Because this project is not versioned we'll just use the short git hash as the version.
+    Because this project is not versioned, we'll just use the short git hash as the version.
 
     Returns:
         The package version.
@@ -20,6 +20,7 @@ def version() -> str:
 authors = ["graham thompson"]
 
 requires = [
+    "houdini-20.5+<21.5",
     "python_singleton",
     "tabulate",
     "you_can_call_me_houdini",
@@ -29,7 +30,7 @@ build_system = "cmake"
 
 tests = {
     "unit": {
-        "command": "coverage erase && hython -m pytest tests",
+        "command": "hython -m pytest tests",
         "requires": ["pytest", "pytest_cov", "pytest_datadir", "pytest_mock", "pytest_sugar"],
     }
 }
