@@ -19,10 +19,14 @@ def test__build_display_table(mocker):
         api.RecentFile(pathlib.Path("/test/path/file3.hipnc"), 1722337846.0559487, "20.5.310"),
     ]
 
+    mock_manager.files[0].exists = True
+    mock_manager.files[1].exists = False
+    mock_manager.files[2].exists = True
+
     expected = [
-        f"1. $HIP/file1.hipnc        (20.5.178)  {datetime.fromtimestamp(1710886869.0176835).strftime(constants.TIMESTAMP_FORMAT)}",
-        f"2. $HOME/file2.hipnc       (None)      {datetime.fromtimestamp(1738076128.2437088).strftime(constants.TIMESTAMP_FORMAT)}",
-        f"3. /test/path/file3.hipnc  (20.5.310)  {datetime.fromtimestamp(1722337846.0559487).strftime(constants.TIMESTAMP_FORMAT)}",
+        f"1. $HIP/file1.hipnc                      (20.5.178)  {datetime.fromtimestamp(1710886869.0176835).strftime(constants.TIMESTAMP_FORMAT)}",
+        f"2. $HOME/file2.hipnc (no longer exists)  (None)      {datetime.fromtimestamp(1738076128.2437088).strftime(constants.TIMESTAMP_FORMAT)}",
+        f"3. /test/path/file3.hipnc                (20.5.310)  {datetime.fromtimestamp(1722337846.0559487).strftime(constants.TIMESTAMP_FORMAT)}",
     ]
 
     result = ui._build_display_table(mock_manager)

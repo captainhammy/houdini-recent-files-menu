@@ -22,7 +22,7 @@ def clear_cached_instance():
 @pytest.fixture
 def init_test_manager(mocker):
     """Callable fixture to initialize a RecentFileManager for testing without loading data."""
-    mocker.patch.object(api.RecentFileManager, "__post_init__", return_value=None)
+    mocker.patch.object(api.RecentFileManager, "__post_init__")
 
     def _create():
         return api.RecentFileManager()
@@ -45,6 +45,7 @@ class TestRecentFile:
         assert inst.path == mock_path
         assert inst.open_timestamp == 123456.789
         assert inst.save_version == "20.5.456"
+        assert inst.exists == mock_path.exists.return_value
 
     def test_as_json(self, mocker):
         """Test RecentFile.as_json()."""
@@ -92,7 +93,7 @@ class TestRecentFileManager:
         mocker.patch("houdini_recent_files_menu.constants.MAX_DISPLAY_FILES", 3)
 
         inst = init_test_manager()
-        inst.files.append(None)  # Insert dummy data to test the files list is cleared.
+        inst.files.append(None)  # Insert placeholder data to test that the list is cleared.
 
         inst._init_from_data(test_data)
 
