@@ -46,7 +46,7 @@ jobs:
       - name: Build houdini-core-tools
         uses: captainhammy/build-rez-package-action@v1
         with:
-          from_git: https://github.com/captainhammy/houdini-core-tools.git
+          from_git: https://github.com/captainhammy/you-can-call-me-houdini.git
 
       # Build rez packages
       - name: Build Current Rez Package
